@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:queestudiar/screen_result.dart';
 import 'quiz_brain.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 QuizBrain quizBrain= new QuizBrain();
 
