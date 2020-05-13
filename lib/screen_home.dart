@@ -22,12 +22,14 @@ class HomePage extends StatelessWidget {
               height: 10.0,
             ),*/
             Expanded(
-              child: Image.asset('images/diamond.jpg'),
+              child: Image.asset('images/que_estudio.png'),
             ),
             SizedBox(
               height: 10.0,
             ),
             Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(15.0),
               child: FlatButton(
                 onPressed: () {
                   Navigator.push(
@@ -48,7 +50,7 @@ class HomePage extends StatelessWidget {
                 color: Color.fromRGBO(127, 255, 210, 1.0),
               ),
             ),
-          ],
+            ),],
         ),
       ),
     );

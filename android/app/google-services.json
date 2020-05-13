@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "113017864446",
+    "firebase_url": "https://estudiodb-3bb9b.firebaseio.com",
+    "project_id": "estudiodb-3bb9b",
+    "storage_bucket": "estudiodb-3bb9b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113017864446:android:f010b8237e6e8ced5665af",
+        "android_client_info": {
+          "package_name": "com.example.queestudiar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "113017864446-kvke3ooivos53eeha2n2qcvdf0ji30lt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFu-uXddpxQzr4acgdwFyqgL3N5aGEAto"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "113017864446-kvke3ooivos53eeha2n2qcvdf0ji30lt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
