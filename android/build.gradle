@@ -5,9 +5,13 @@ buildscript {
     }
 
     dependencies {
+        //Google auth
         classpath 'com.android.tools.build:gradle:3.5.0'
         classpath 'com.google.gms:google-services:3.2.1'  // Google Services plugin
 
+        //Firebase auth
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.google.gms:google-services:4.2.0'
     }
 }
 

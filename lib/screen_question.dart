@@ -11,7 +11,7 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   int answer = 0;
-  int limit = 5;
+  int limit = 9;
 
 
   @override

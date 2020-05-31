@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:queestudiar/screen_login.dart';
 
 import 'screen_home.dart';
 
@@ -10,7 +11,8 @@ void main() => runApp(
             title: Text('¿Que estudio?'),
             backgroundColor: Colors.orangeAccent,
           ),
-     */     body: HomePage(),
+     */     //body: HomePage(),
+          body: LoginScreen(),
         ),
       ),
     );
