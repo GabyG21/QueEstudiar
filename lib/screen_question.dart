@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:queestudiar/screen_result.dart';
 import 'quiz_brain.dart';
+import 'globals.Dart' as globals;
 
 QuizBrain quizBrain= new QuizBrain();
 
@@ -11,8 +12,13 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   int answer = 0;
-  int limit = 9;
+  int limit = 23;
 
+  List getInteligencia(int inteligencia, int respuesta, List valores) {
+    int valor = valores[inteligencia - 1];
+    valores[inteligencia - 1] = valor + respuesta;
+    return valores;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,18 +64,20 @@ class _QuizPageState extends State<QuizPage> {
                 //level 5
                 setState(() {
                   if(answer < limit) {
-                      answer++;}
-                    else  {
+                    answer++;}
+                  else  {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) {
-                        return ResultsPage();
+                        return ResultPage();
                       }),
                     );
                   }
+                  quizBrain.questionBank[answer].questionAnswer = 5;
+                 getInteligencia(quizBrain.questionBank[answer].inteligencia, 5, globals.valores);
+
                 });
-                quizBrain.questionBank[answer].questionAnswer = 5;
-                print(quizBrain.questionBank[answer].questionText+ ' ' + quizBrain.questionBank[answer].questionAnswer.toString() );
+
               },
               child: Text(
                 'Me gusta mucho',
@@ -95,13 +103,14 @@ class _QuizPageState extends State<QuizPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) {
-                        return ResultsPage();
+                        return ResultPage();
                       }),
                     );
                   }
                 });
                 quizBrain.questionBank[answer].questionAnswer = 4;
-                print(quizBrain.questionBank[answer].questionText+ ' ' + quizBrain.questionBank[answer].questionAnswer.toString() );
+                //print(quizBrain.questionBank[answer].questionText+ ' ' + quizBrain.questionBank[answer].questionAnswer.toString() );
+                getInteligencia(quizBrain.questionBank[answer].inteligencia, 4, globals.valores);
               },
               child: Text(
                 'Me gusta ',
@@ -127,13 +136,14 @@ class _QuizPageState extends State<QuizPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) {
-                        return ResultsPage();
+                        return ResultPage();
                       }),
                     );
                   }
                 });
                 quizBrain.questionBank[answer].questionAnswer = 3;
-                print(quizBrain.questionBank[answer].questionText+ ' ' + quizBrain.questionBank[answer].questionAnswer.toString() );
+                //print(quizBrain.questionBank[answer].questionText+ ' ' + quizBrain.questionBank[answer].questionAnswer.toString() );
+                getInteligencia(quizBrain.questionBank[answer].inteligencia, 3, globals.valores);
               },
               child: Text(
                 'Me gusta algo',
@@ -159,13 +169,13 @@ class _QuizPageState extends State<QuizPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) {
-                        return ResultsPage();
+                        return ResultPage();
                       }),
                     );
                   }
                 });
                 quizBrain.questionBank[answer].questionAnswer = 2;
-                print(quizBrain.questionBank[answer].questionText+ ' ' + quizBrain.questionBank[answer].questionAnswer.toString() );
+                getInteligencia(quizBrain.questionBank[answer].inteligencia, 2, globals.valores);
               },
               child: Text(
                 'Me gusta poco',
@@ -191,13 +201,14 @@ class _QuizPageState extends State<QuizPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) {
-                        return ResultsPage();
+                        return ResultPage();
                       }),
                     );
                   }
+                  quizBrain.questionBank[answer].questionAnswer = 1;
+                  getInteligencia(quizBrain.questionBank[answer].inteligencia, 1, globals.valores);
                 });
-                quizBrain.questionBank[answer].questionAnswer = 1;
-                print(quizBrain.questionBank[answer].questionText+ ' ' + quizBrain.questionBank[answer].questionAnswer.toString() );
+
               },
               child: Text(
                 'No me gusta',

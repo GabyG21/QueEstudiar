@@ -11,8 +11,8 @@ void main() => runApp(
             title: Text('¿Que estudio?'),
             backgroundColor: Colors.orangeAccent,
           ),
-     */     //body: HomePage(),
-          body: LoginScreen(),
+     */     body: HomePage(),
+          //body: LoginScreen(),
         ),
       ),
     );
