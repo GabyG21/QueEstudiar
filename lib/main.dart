@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:queestudiar/screen_login.dart';
+import 'screens/screen_home.dart';
 
-import 'screen_home.dart';
+void main() => runApp(MyApp());
 
-void main() => runApp(
-      MaterialApp(
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return  MaterialApp(
         home: Scaffold(
           backgroundColor: Color.fromRGBO(255, 192, 77, 1),
    /*       appBar: AppBar(
@@ -14,5 +17,8 @@ void main() => runApp(
      */     body: HomePage(),
           //body: LoginScreen(),
         ),
-      ),
-    );
+      );
+  }
+
+
+}

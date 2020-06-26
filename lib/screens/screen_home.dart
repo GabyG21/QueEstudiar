@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:queestudiar/screen_login.dart';
+import 'package:queestudiar/screens/screen_login.dart';
 
 
 class HomePage extends StatelessWidget {

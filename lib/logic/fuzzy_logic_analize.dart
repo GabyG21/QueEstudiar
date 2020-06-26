@@ -29,25 +29,8 @@ class FuzzyLogicApply {
   }
 
   void calculateIntelligence(List valor, List salida, List pos) {
-
     for (int i = 0; i < valor.length; i++) {
       salida[i] = workIntelligence(valor[i]);
     }
-//ordenacion
-    int position;
-    int extra;
-    for (int i = 0; i < valor.length; i++) {
-      if (valor[i] > valor[i + 1]) {
-        extra = valor[i + 1];
-        valor[i + 1] = valor[i];
-        valor[i] = extra;
-        position = pos[i + 1];
-        pos[i + 1] = pos[i];
-        pos[i] = position;
-      }
-    }
-    //get max position
-
-
   }
 }

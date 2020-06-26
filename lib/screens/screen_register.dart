@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:queestudiar/screen_home.dart';
-import 'package:queestudiar/screen_login.dart';
+import 'package:queestudiar/screens/screen_home.dart';
+import 'package:queestudiar/screens/screen_login.dart';
 import 'package:queestudiar/globals.Dart' as global;
 
 
@@ -12,40 +12,29 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
 
   String email='';
   String password ='';
-  String registervalue;
   dynamic snackBar;
 
   Future registerWithEmailPassword(String email, String password) async{
     FirebaseUser user;
     try{
-      user = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      user = result.user;
+      return (user);
     }catch(e){
       print(e.toString());
+      return null;
     } finally{
       if(user != null){
-        registervalue= 'Registro exitoso';
         global.register=true;
-        snackBar = SnackBar(
-            content: Text('Usuario Registrado'),);
-        print(registervalue);
-        setState(() {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) {
-              return LoginScreen();
-            }),
-          );
-        });
+        print('Registro exitoso');
+          Navigator.of(context).pop();
       }else{
-        snackBar = SnackBar(
-            content: Text('Hubo un error, vuelve a intentarlo'),);
-        print(registervalue);
+
         global.register=false;
       }
     }
@@ -159,6 +148,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                           onPressed: () async{
                                             if(_formKey.currentState.validate()){
                                               registerWithEmailPassword(email, password);
+                                            }else{
+                                              Scaffold.of(context).showSnackBar(SnackBar(content: Text('Error en registro de usuario')));
                                             }
                                           },
                                           minWidth: double.infinity,

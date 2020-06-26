@@ -5,12 +5,11 @@ import 'dart:async';
 import 'dart:io';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:queestudiar/LoginTypes.dart';
-import 'package:queestudiar/screen_instruction.dart';
-import 'package:queestudiar/screen_register.dart';
+import 'package:queestudiar/screens/screen_instruction.dart';
+import 'package:queestudiar/screens/screen_register.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
-import 'globals.Dart' as globals;
+import '../globals.Dart' as globals;
 
 final GoogleSignIn _googleSignIn = new GoogleSignIn();
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -26,6 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String password = '';
   final _formKey = GlobalKey<FormState>();
   String _message = 'Log in/out by pressing the buttons below.';
+
 
   @override
   void initState() {
@@ -63,18 +63,18 @@ class _LoginScreenState extends State<LoginScreen> {
 
     final AuthCredential credential = GoogleAuthProvider.getCredential(
         idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
-    final FirebaseUser user = await _auth.signInWithCredential(credential);
+    final AuthResult authResult = await _auth.signInWithCredential(credential);
+    final FirebaseUser user =authResult.user;
     if (user != null && user.isAnonymous == false) {
       print('google login success');
-      setState(() {
         globals.isLoggedIn= true;
+        globals.typo='G';
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) {
             return InstructionPage();
           }),
         );
-      });
     } else {
       print('google login fails');
       setState(() {
@@ -86,23 +86,24 @@ class _LoginScreenState extends State<LoginScreen> {
   void signInWithEmail(email, password) async {
     FirebaseUser user;
     try {
-      user = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+      AuthResult result =await _auth.signInWithEmailAndPassword(email: email, password: password);
+    user = result.user;
+
     } catch (e) {
       print(e.toString());
     } finally {
       if (user != null) {
         print('login succesfull');
-        setState(() {
           globals.isLoggedIn=true;
+          globals.typo='E';
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) {
               return InstructionPage();
             }),
           );
-        });
       } else {
+        print(user);
         print('login fails');
         globals.isLoggedIn=false;
         showAlertWrong(context);
@@ -128,14 +129,13 @@ class _LoginScreenState extends State<LoginScreen> {
          ''');
          print(_message);
          globals.isLoggedIn=true;
-         setState(() {
-           Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) {
-              return InstructionPage();
-            }),
-          );
-         });
+         globals.typo='F';
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) {
+            return InstructionPage();
+          }),
+        );
         break;
       case FacebookLoginStatus.cancelledByUser:
         _message=('Login cancelled by the user.');
@@ -150,20 +150,6 @@ class _LoginScreenState extends State<LoginScreen> {
         break;
     }
   }
-
-  Future<Null> logOutFacebook() async {
-    await facebookSignIn.logOut();
-    _message=('Logged out.');
-    globals.isLoggedIn=false;
-  }
-
-  Future<Null> logOutEmail() async{
-    await _auth.signOut();
-    _message='logOut';
-    globals.isLoggedIn=false;
-  }
-
-
 
   void getUserInfoFacebook(FacebookLoginResult result) async{
    final token = result.accessToken.token;
@@ -183,13 +169,13 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Container(
-                child: Image.asset('images/que_estudio.png'),
+                child: Image.asset('images/que_estudio.png',),
                 height: 160.0,
               ),
               SizedBox(
@@ -252,6 +238,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 TextFormField(
                                   keyboardType: TextInputType.text,
+                                  validator: (val) => val.isEmpty ? 'Ingrese su contraseña': null,
                                   obscureText: true,
                                   onChanged: (val) {
                                     setState(() => password = val);
@@ -278,7 +265,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: () async {
                             if(_formKey.currentState.validate()){
                               signInWithEmail(email, password);
-
                             }
                           },
                           minWidth: double.infinity,
